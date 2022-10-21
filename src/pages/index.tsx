@@ -1,6 +1,17 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetStaticProps } from 'next';
+import { api } from '../services/api';
 
-const Home: NextPage = ({ episodes }: any) => {
+type Episode = {
+  id: string;
+  title: string;
+  members: string;
+};
+
+interface HomeProps {
+  episodes: Episode[];
+}
+
+const Home: NextPage<HomeProps> = ({ episodes }: HomeProps) => {
   return (
     <div>
       <h1>Index</h1>
@@ -9,9 +20,15 @@ const Home: NextPage = ({ episodes }: any) => {
   );
 };
 
-export async function getStaticProps() {
-  const response = await fetch('http://localhost:3333/episodes');
-  const data = await response.json();
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await api.get('episodes', {
+    params: {
+      _limit: 12,
+      _sort: 'published_at',
+      _order: 'desc',
+    },
+  });
+  const data = await response.data();
 
   return {
     props: {
@@ -19,6 +36,6 @@ export async function getStaticProps() {
     },
     revalidate: 60 * 60, // 1 hour
   };
-}
+};
 
 export default Home;
