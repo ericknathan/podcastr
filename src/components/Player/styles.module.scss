@@ -164,4 +164,75 @@
       }
     }
   }
+
+  @media screen and (max-width: 1440px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100vw;
+    height: 10rem;
+
+    padding: 1rem 4rem;
+
+    header {
+      display: none;
+    }
+
+    .currentEpisode {
+      display: flex;
+      text-align: start;
+      position: absolute;
+      top: -10%;
+
+      .textWrapper {
+        display: none;
+      }
+
+      > span, img {
+        width: 6rem !important;
+        height: 6rem !important;
+  
+        border-radius: 1rem;
+      }
+    }
+
+    .emptyPlayer {
+      position: absolute;
+      top: -10%;
+
+      height: 6rem;
+      width: 6rem;
+      padding: .5rem;
+      border-radius: 1rem;
+      margin-bottom: 0;
+
+      background-color: rgba(145, 100, 250, 0.8);
+
+      font-size: 80%;
+      
+      strong {
+        font-weight: 500;
+      }
+    }
+
+    footer {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+
+      width: 100%;
+
+      .progressBar {
+        flex: 1;
+        width: 100%;
+      }
+
+      .controls {
+        margin-top: 0;
+      }
+    }
+  }
 }

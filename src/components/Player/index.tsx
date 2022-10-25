@@ -75,8 +75,10 @@ export function Player() {
             height={592}
             objectFit="cover"
           />
-          <strong title={episode.title}>{episode.title}</strong>
-          <span title={episode.members}>{episode.members}</span>
+          <div className={styles.textWrapper}>
+            <strong title={episode.title}>{episode.title}</strong>
+            <span title={episode.members}>{episode.members}</span>
+          </div>
         </div>
       ) : (
         <div className={styles.emptyPlayer}>
