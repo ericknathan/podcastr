@@ -7,5 +7,9 @@ export function convertDurationToTimeString(duration: number) {
     .map((unit) => String(unit).padStart(2, '0'))
     .join(':');
 
+  if (timeString.startsWith('00:')) {
+    return timeString.substring(3);
+  }
+
   return timeString;
 }

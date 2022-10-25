@@ -9,14 +9,22 @@ import { convertDurationToTimeString } from '../../utils/convertDurationToTimeSt
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePlayer } from '../../contexts/PlayerContext';
+import Head from 'next/head';
 
 interface EpisodeProps {
   episode: EpisodeModel;
 }
 
 const Episode: NextPage<EpisodeProps> = ({ episode }) => {
+  const { play } = usePlayer();
+
   return (
     <div className={styles.episodeWrapper}>
+      <Head>
+        <title>{episode.title} | Podcastr</title>
+      </Head>
+
       <div className={styles.episodeContent}>
         <div className={styles.thumbnailContainer}>
           <Link href="/">
@@ -26,11 +34,11 @@ const Episode: NextPage<EpisodeProps> = ({ episode }) => {
           </Link>
           <Image
             src={episode.thumbnail}
-            width={700}
-            height={160}
+            width={296}
+            height={320}
             objectFit="cover"
           />
-          <button type="button">
+          <button type="button" onClick={() => play(episode)}>
             <img src="/play.svg" alt="Tocar episódio" />
           </button>
         </div>
