@@ -49,9 +49,9 @@ export function Player() {
     });
   }
 
-  function handleSeek(amount: number) {
-    audioRef.current!.currentTime = amount;
-    setProgress(amount);
+  function handleSeek(amount: number | number[]) {
+    audioRef.current!.currentTime = Number(amount);
+    setProgress(Number(amount));
   }
 
   function handleEpisodeEnded() {
