@@ -12,7 +12,7 @@ interface EpisodesListProps {
 
 export function EpisodesList({ list }: EpisodesListProps) {
   return (
-    <table cellSpacing={0} className="table-auto">
+    <table cellSpacing={0} className="table-auto w-full">
       <thead>
         <tr className="uppercase text-xs font-medium text-gray-200 text-left border-b">
           <th>Podcast</th>

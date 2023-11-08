@@ -1,6 +1,8 @@
-import { api } from "@/lib/api";
+import { notFound } from "next/navigation";
+
 import { convertDurationToTimeString, formatShortDate } from "@/lib/utils";
-import { EpisodeModel } from "@/types/models";
+import { getEpisode } from "@/api/episodes";
+
 import { EpisodeBanner } from "./components";
 
 export default async function EpisodePage({
@@ -8,9 +10,9 @@ export default async function EpisodePage({
 }: {
   params: { slug: string };
 }) {
-  const episode = await api.get<EpisodeModel>(
-    `/podcasts/episodes/${params.slug}`
-  );
+  const episode = await getEpisode(params.slug);
+
+  if(!episode) return notFound();
 
   return (
     <div className="max-w-[46rem] w-full mx-auto p-12 flex flex-col gap-8">
