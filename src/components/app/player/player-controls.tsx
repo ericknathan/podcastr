@@ -21,6 +21,7 @@ function ControlActionButton({
       className={cn(
         "flex items-center justify-center w-10 xl:w-12 aspect-square p-2 xl:p-3 bg-primary-500 enabled:hover:brightness-95 disabled:opacity-50 transition-filter rounded-md",
         "focus-visible:outline outline-2 outline-primary-300",
+        active && "relative after:content-[''] after:w-1 after:h-1 after:rounded-full after:bg-secondary-500 after:absolute after:bottom-2 after:left-1/2 after:-translate-x-1/2",
         className
       )}
       {...props}
