@@ -16,9 +16,9 @@ export function EpisodesList({ list }: EpisodesListProps) {
       <thead>
         <tr className="uppercase text-xs font-medium text-gray-200 text-left border-b">
           <th>Podcast</th>
-          <th>Integrantes</th>
-          <th>Data</th>
-          <th>Duração</th>
+          <th>Members</th>
+          <th>Date</th>
+          <th>Duration</th>
           <th></th>
         </tr>
       </thead>
