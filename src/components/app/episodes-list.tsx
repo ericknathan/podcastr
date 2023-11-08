@@ -54,7 +54,7 @@ export function EpisodesList({ list }: EpisodesListProps) {
               {convertDurationToTimeString(episode.file.duration)}
             </td>
             <td>
-              <PlayButton />
+              <PlayButton episode={episode} episodeList={list} />
             </td>
           </tr>
         ))}

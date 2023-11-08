@@ -29,4 +29,9 @@
   td {
     @apply py-3 px-4;
   }
+
+  .secondary-filter {
+    filter: brightness(0) saturate(100%) invert(80%) sepia(37%) saturate(7499%)
+      hue-rotate(100deg) brightness(97%) contrast(97%);
+  }
 }

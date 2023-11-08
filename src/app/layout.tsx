@@ -4,6 +4,7 @@ import { Inter, Lexend } from "next/font/google";
 import "@/styles/globals.css";
 
 import { Header, Player } from "@/components/app";
+import { PlayerContextProvider } from "@/contexts";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
 const lexend = Lexend({ subsets: ["latin"], variable: "--font-title" });
@@ -21,14 +22,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${lexend.variable} flex flex-col xl:flex-row overflow-hidden`}>
-        <main className="xl:flex-1 flex flex-col max-xl:overflow-y-scroll">
-          <Header />
-          <div className="xl:overflow-y-scroll h-full">
-            {children}
-          </div>
-        </main>
-        <Player />
+      <body
+        className={`${inter.variable} ${lexend.variable} flex flex-col xl:flex-row overflow-hidden`}
+      >
+        <PlayerContextProvider>
+          <main className="xl:flex-1 flex flex-col max-xl:overflow-y-scroll">
+            <Header />
+            <div className="xl:overflow-y-scroll h-full">{children}</div>
+          </main>
+          <Player />
+        </PlayerContextProvider>
       </body>
     </html>
   );

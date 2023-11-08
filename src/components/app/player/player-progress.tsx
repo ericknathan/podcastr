@@ -1,15 +1,62 @@
 "use client";
 
 import { Slider } from "@/components/ui";
+import { usePlayer } from "@/contexts";
 import { convertDurationToTimeString } from "@/lib/utils";
-import { useState } from "react";
+import { EpisodeModel } from "@/types/models";
+import { useEffect, useRef, useState } from "react";
 
-export function PlayerProgress({ duration = 0 }) {
+interface PlayerProgressProps {
+  episode: EpisodeModel;
+}
+
+export function PlayerProgress({ episode }: PlayerProgressProps) {
+  const {
+    isLooping,
+    isPlaying,
+    hasNext,
+    playNext,
+    clearPlayerState,
+    setPlayingState,
+  } = usePlayer();
+  const [isChangingValue, setIsChangingValue] = useState(false);
   const [progress, setProgress] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   function handleSeek(value: number[]) {
-    console.log(value[0]);
-    // TODO: set audio progress
+    const progress = value[0];
+
+    audioRef.current!.currentTime = progress;
+    setProgress(progress);
+  }
+
+
+  useEffect(() => {
+    if (!audioRef.current) {
+      return;
+    }
+
+    if (isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
+
+  function setupProgressListener() {
+    audioRef.current!.currentTime = 0;
+
+    audioRef.current!.addEventListener("timeupdate", () => {
+      setProgress(Math.floor(audioRef.current!.currentTime));
+    });
+  }
+
+  function handleEpisodeEnded() {
+    if (hasNext) {
+      playNext();
+    } else {
+      clearPlayerState();
+    }
   }
 
   return (
@@ -17,19 +64,32 @@ export function PlayerProgress({ duration = 0 }) {
       <span className="text-white tabular-nums">
         {convertDurationToTimeString(progress)}
       </span>
-      {!!duration && duration !== 0 ? (
+      {episode ? (
         <Slider
-          onValueChange={(value) => setProgress(value[0])}
           onValueCommit={handleSeek}
+          max={episode.file.duration}
           value={[progress]}
-          max={duration}
+          onValueChange={handleSeek}
         />
       ) : (
         <div className="flex-1 h-1 bg-white/20 rounded-full" />
       )}
       <span className="text-white tabular-nums">
-        {convertDurationToTimeString(duration)}
+        {convertDurationToTimeString(episode?.file.duration || 0)}
       </span>
+
+      {episode && (
+        <audio
+          src={episode.file.url}
+          ref={audioRef}
+          loop={isLooping}
+          autoPlay
+          onEnded={handleEpisodeEnded}
+          onPlay={() => setPlayingState(true)}
+          onPause={() => setPlayingState(false)}
+          onLoadedMetadata={setupProgressListener}
+        />
+      )}
     </div>
   );
 }

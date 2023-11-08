@@ -44,7 +44,7 @@ export function EpisodesGrid({ list }: EpisodesGridProps) {
                   </span>
                 </div>
               </div>
-              <PlayButton />
+              <PlayButton episode={episode} episodeList={list} />
             </footer>
           </div>
         </div>

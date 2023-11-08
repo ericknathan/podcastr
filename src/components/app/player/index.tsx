@@ -1,16 +1,19 @@
+"use client"
+
 import Image from "next/image";
 
 import { EpisodeModel } from "@/types/models";
+import { cn } from "@/lib/utils";
+
 import { PlayerControls } from "./player-controls";
 import { PlayerEpisodeDetails } from "./player-episode-details";
 import { PlayerProgress } from "./player-progress";
-import { cn } from "@/lib/utils";
+import { usePlayer } from "@/contexts";
 
-interface PlayerProps {
-  episode?: EpisodeModel;
-}
+export function Player() {
+  const { episodeList, currentEpisodeIndex } = usePlayer();
+  const episode = episodeList[currentEpisodeIndex];
 
-export function Player({ episode }: PlayerProps) {
   return (
     <aside
       className="sticky xl:relative bottom-0 flex flex-col md:flex-row xl:flex-col gap-4 xl:gap-0 justify-between md:items-center p-6 xl:px-16 xl:py-9 bg-primary-500 xl:text-center w-full xl:w-[26.5rem] group"
@@ -34,7 +37,7 @@ export function Player({ episode }: PlayerProps) {
       </main>
 
       <footer className="flex-1 xl:flex-initial flex flex-col gap-4 md:gap-0 xl:gap-10 group-data-[has-episode='false']:opacity-50 group-data-[has-episode='false']:[&_*]:pointer-events-none">
-        <PlayerProgress duration={!episode ? 0 : episode.file.duration} />
+        <PlayerProgress episode={episode} />
         <PlayerControls disabled={!episode} />
       </footer>
     </aside>

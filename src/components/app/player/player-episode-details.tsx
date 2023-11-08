@@ -22,7 +22,7 @@ export function PlayerEpisodeDetails({ episode }: PlayerEpisodeDetailsProps) {
         >
           {episode.title}
         </h2>
-        <p className="text-white/70 text-sm xl:text-base line-clamp-1">
+        <p className="text-white/70 text-sm xl:text-base line-clamp-1" title={episode.members}>
           {episode.members}
         </p>
       </div>
