@@ -90,25 +90,6 @@ export function PlayerContextProvider({
     if (hasPrevious) setCurrentEpisodeIndex(currentEpisodeIndex - 1);
   }
 
-  console.log({
-    episodeList,
-    currentEpisodeIndex,
-    play,
-    playList,
-    playNext,
-    playPrevious,
-    isPlaying,
-    isLooping,
-    isShuffling,
-    togglePlay,
-    setPlayingState,
-    hasNext,
-    hasPrevious,
-    toggleLoop,
-    toggleShuffle,
-    clearPlayerState,
-  })
-
   return (
     <PlayerContext.Provider
       value={{
