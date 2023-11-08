@@ -3,8 +3,10 @@ import { Inter, Lexend } from "next/font/google";
 
 import "@/styles/globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
-const lexend = Lexend({ subsets: ["latin"] });
+import { Header, Player } from "@/components/app";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
+const lexend = Lexend({ subsets: ["latin"], variable: "--font-title" });
 
 export const metadata: Metadata = {
   title: "Podcastr",
@@ -19,8 +21,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${lexend.className}`}>
-        {children}
+      <body className={`${inter.variable} ${lexend.variable} flex flex-col xl:flex-row overflow-hidden`}>
+        <main className="xl:flex-1 flex flex-col max-xl:overflow-y-scroll">
+          <Header />
+          <div className="xl:overflow-y-scroll h-full">
+            {children}
+          </div>
+        </main>
+        <Player />
       </body>
     </html>
   );
