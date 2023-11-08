@@ -4,7 +4,9 @@ import { EpisodeModel } from "@/types/models";
 import { EpisodesGrid, EpisodesList } from "@/components/app";
 
 export default async function Home() {
-  const episodes = await api.get<EpisodeModel[]>("/podcasts/episodes");
+  const episodes = await api
+    .get<EpisodeModel[]>("/podcasts/episodes")
+    .catch(() => []);
 
   const episodesList = episodes.sort(
     (a, b) =>
